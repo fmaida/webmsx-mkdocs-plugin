@@ -1,1 +1,1 @@
-from .wmsx import WMSXPlugin
+from .webmsx import WebMSXPlugin

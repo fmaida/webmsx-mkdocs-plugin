@@ -16,7 +16,7 @@ setup(
     # Without them, mkdocs will not be able to recognize it.
     entry_points={
         'mkdocs.plugins': [
-            'webmsx = webmsx:WMSXPlugin',
+            'webmsx = webmsx:WebMSXPlugin',
         ]
     },
 )
