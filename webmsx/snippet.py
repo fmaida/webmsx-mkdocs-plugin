@@ -3,6 +3,9 @@ from os.path import join, dirname
 
 
 class HTMLText:
+    """
+    Creates the HTML Snippet that will be injected
+    """
 
     def __init__(self, p_game, p_machine):
         self.html = ""
@@ -19,12 +22,6 @@ class HTMLText:
         self.html = self.html.replace("{% GAME %}", temp)
         self.html = self.html.replace("{% MACHINE %}", p_machine)
         f.close()
-
-    def add(self, p_text):
-        self.html += p_text + "\n"
-
-    def adn(self, p_text):
-        self.html += p_text.strip()
 
     def __str__(self):
         return self.html
