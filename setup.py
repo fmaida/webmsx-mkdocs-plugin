@@ -2,13 +2,13 @@ from setuptools import setup
 
 setup(
     name='webmsx-mkdocs-plugin',
-    version='1.0.0',
+    version='0.9.0',
     packages=['webmsx'],
-    url='https://github.com/fmaida/hello-dolly-mkdocs-plugin',
+    url='https://github.com/fmaida/webmsx-mkdocs-plugin',
     license='MIT',
     author='Francesco Maida',
     author_email='francesco.maida@gmail.com',
-    description='Embed WebMSX emulator for use with mkdocs.',
+    description='Embed WebMSX emulator in mkdocs documents.',
     install_requires=['mkdocs'],
 
     # The following rows are important to register your plugin.

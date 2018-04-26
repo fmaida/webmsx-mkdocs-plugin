@@ -9,7 +9,8 @@ parts
 *.pyc
 lib
 lib64
-hellodolly/__pycache__/
+webmsx/__pycache__/
+build/
 .DS_Store
 
 .idea/*
