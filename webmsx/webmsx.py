@@ -5,7 +5,7 @@ from .snippet import webmsx_snippet
 
 class WebMSXPlugin(BasePlugin):
 
-    def on_page_markdown(self, markdown, page, config, site_navigation):
+    def on_page_content(self, html, page, config, site_navigation):
 
         # Search for {% msx "title.rom" %}
 
@@ -21,8 +21,8 @@ class WebMSXPlugin(BasePlugin):
                     system = page.meta["msx_system"].upper().replace(chr(34), "").replace("'", "")
                 except KeyError:
                     system = "MSX1"
-                markdown += webmsx_snippet(game, system)
+                html += webmsx_snippet(game, system)
         except KeyError:
             pass
 
-        return markdown
+        return html
