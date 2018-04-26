@@ -4,12 +4,12 @@ from os.path import join, dirname
 
 class HTMLText:
 
-    def __init__(self, p_game, p_system):
+    def __init__(self, p_game, p_machine):
         self.html = ""
         f = open(join(dirname(__file__), "./code.inc.html"), "r")
         self.html = f.read()
         self.html = self.html.replace("{% GAME %}", p_game)
-        self.html = self.html.replace("{% SYSTEM %}", p_system)
+        self.html = self.html.replace("{% MACHINE %}", p_machine)
         f.close()
 
     def add(self, p_text):
@@ -22,8 +22,8 @@ class HTMLText:
         return self.html
 
 
-def webmsx_snippet(p_game, p_system):
-    html = HTMLText(p_game, p_system)
+def webmsx_snippet(p_game, p_machine):
+    html = HTMLText(p_game, p_machine)
 
     return str(html)
 

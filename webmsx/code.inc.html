@@ -7,7 +7,7 @@
     $(document).ready(function() {
         $('#playmsx').click(function() {
             $('#wmsx-control').append(
-                '<div id="wmsx" style="text-align: center; margin: 20px auto 0;">'
+                '<div id="wmsx" style="text-align: left; margin: 20px auto 0;">'
                 + '<div id="wmsx-screen" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, .7);">'
                 + '</div>'
                 + '</div>'
@@ -15,7 +15,7 @@
             jQuery.getScript("/_js/wmsx.js", function() {
                 WMSX.AUTO_START_DELAY = -1;
                 WMSX.CARTRIDGE1_URL = '/_roms/{% GAME %}';
-                WMSX.MACHINE = '{% SYSTEM %}';
+                WMSX.MACHINE = '{% MACHINE %}';
                 WMSX.start();
                 $('#wmsx').show();
                 $('#playmsx').hide();
