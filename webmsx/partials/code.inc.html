@@ -4,8 +4,10 @@
     <a id='playmsx' href='#'>Play this game online</a>
 
 <script type='text/javascript'>
-    $(document).ready(function() {
+    $(document).ready(function(e) {
         $('#playmsx').click(function() {
+            $('#playmsx').text('(Hold on..)');
+            e.preventDefault();
             $('#wmsx-control').append(
                 '<div id="wmsx" style="text-align: left; margin: 20px auto 0;">'
                 + '<div id="wmsx-screen" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, .7);">'

@@ -1,2 +1,2 @@
-include *.html
-recursive-include *.html *.py
+include webmsx/partials/*.html
+recursive-include webmsx/*.html *.py
