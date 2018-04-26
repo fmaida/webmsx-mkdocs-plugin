@@ -1,19 +1,45 @@
+class HTMLText:
+
+    def __init__(self):
+        self.html = ""
+
+    def add(self, p_text):
+        self.html += p_text + "\n"
+
+    def addn(self, p_text):
+        self.html += p_text
+
+    def __str__(self):
+        return self.html
+
+
 def webmsx_snippet(p_game, p_system):
-    temp = ""
+    html = HTMLText()
 
-    temp += "<script type=\"text/javascript\">"
-    # temp += "console.log(\"Ciao a tutti belli e brutti.\");"
-    temp += "WMSX.CARTRIDGE1_URL = \"/_roms/{}\";".format(p_game)
-    temp += "WMSX.SYSTEM = \"{}\";".format(p_system)
-    temp += "</script>"
+    html.add("<div id='wmsx-control'>")
+    html.add("</div>")
 
-    temp += "<div id=\"wmsx-control\">"
-    temp += "<div id=\"wmsx\" style=\"text-align: center; margin: 20px auto 0;\">"
-    temp += "<div id=\"wmsx-screen\" style=\"box-shadow: 2px 2px 10px rgba(0, 0, 0, .7);\">"
-    temp += "</div>"
-    temp += "</div>"
-    temp += "</div>"
+    html.add("<a id='playmsx' href='#'>Play this game</a>")
 
-    # temp += "<script src=\"/_js/wmsx.js\"></script>"
+    html.add("<script type='text/javascript'>")
+    html.add("  $(document).ready(function() {")
+    html.add("    WMSX.AUTO_START_DELAY = -1;")
+    html.add("    WMSX.CARTRIDGE1_URL = '/_roms/{}';".format(p_game))
+    html.add("    WMSX.SYSTEM = '{}';".format(p_system))
+    html.add("    $('#playmsx').click(function() {")
+    html.addn("      $('#wmsx-control').append('")
 
-    return temp
+    html.addn("        <div id=\"wmsx\" style=\"text-align: center; margin: 20px auto 0;\" \\ >")
+    html.addn("          <div id=\"wmsx-screen\" style=\"box-shadow: 2px 2px 10px rgba(0, 0, 0, .7);\" \\ >")
+    html.addn("          </div> \\")
+    html.addn("        </div> \\")
+
+    # html.addn("        <script src=\"/_js/wmsx.js\"></script> \\")
+
+    html.add("      ');")
+    html.add("    });")
+    html.add("  });")
+
+    html.add("</script>")
+
+    return str(html)
