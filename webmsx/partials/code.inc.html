@@ -15,7 +15,7 @@
             );
             jQuery.getScript("/_js/wmsx.js", function() {
                 WMSX.AUTO_START_DELAY = -1;
-                WMSX.CARTRIDGE1_URL = '/_roms/{% GAME %}';
+                {% GAME %}
                 WMSX.MACHINE = '{% MACHINE %}';
                 WMSX.start();
                 $('#wmsx').show();
