@@ -7,28 +7,31 @@ class HTMLText:
     Creates the HTML Snippet that will be injected
     """
 
-    def __init__(self, p_game, p_machine):
+    def __init__(self, game, machine):
         self.html = ""
         f = open(join(dirname(__file__), "partials", "./code.inc.html"), "r")
         self.html = f.read()
-        if p_game.endswith(".rom") \
-                or p_game.endswith(".mx1") \
-                or p_game.endswith(".mx2"):
-            temp = "WMSX.CARTRIDGE1_URL = '/_roms/{}';".format(p_game)
-        elif p_game.endswith(".dsk"):
-            temp = "WMSX.DISKA_URL = '/_disks/{}';".format(p_game)
-        elif p_game.endswith(".cas"):
-            temp = "WMSX.TAPE_URL = '/_tapes/{}';".format(p_game)
-        self.html = self.html.replace("{% GAME %}", temp)
-        self.html = self.html.replace("{% MACHINE %}", p_machine)
         f.close()
+
+        temp = ""
+        if game.endswith(".rom") \
+                or game.endswith(".mx1") \
+                or game.endswith(".mx2"):
+            temp = "WMSX.CARTRIDGE1_URL = '/_roms/{}';".format(game)
+        elif game.endswith(".dsk"):
+            temp = "WMSX.DISKA_URL = '/_disks/{}';".format(game)
+        elif game.endswith(".cas"):
+            temp = "WMSX.TAPE_URL = '/_tapes/{}';".format(game)
+
+        self.html = self.html.replace("{% GAME %}", temp)
+        self.html = self.html.replace("{% MACHINE %}", machine)
 
     def __str__(self):
         return self.html
 
 
-def webmsx_snippet(p_game, p_machine):
-    html = HTMLText(p_game, p_machine)
+def webmsx_snippet(game, machine):
+    html = HTMLText(game=game, machine=machine)
 
     return str(html)
 

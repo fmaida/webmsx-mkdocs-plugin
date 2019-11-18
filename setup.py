@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='webmsx-mkdocs-plugin',
-    version='0.9.6',
+    version='0.9.7',
     packages=['webmsx'],
     url='https://github.com/fmaida/webmsx-mkdocs-plugin',
     license='MIT',

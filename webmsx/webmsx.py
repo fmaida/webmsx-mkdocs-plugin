@@ -7,15 +7,13 @@ class WebMSXPlugin(BasePlugin):
     This class is derived from mkdocs.plugins.BasePlugin
     """
 
-    def on_page_content(self, html, page, config, site_navigation):
+    def on_page_content(self, html, page, **kwargs):
         """
         This will be invoked each time a page has just finished rendering from markdown to HTML
 
         Args:
             html: the HTML code
             page:
-            config:
-            site_navigation:
 
         Returns:
             the HTML code, eventually modified
@@ -29,24 +27,18 @@ class WebMSXPlugin(BasePlugin):
         #                   flags=re.IGNORECASE)
 
         try:
-            if page.meta["msx"] != "":
-                values = page.meta["msx"].split(" ")
-                if "game:" in values:
-                    try:
-                        pos = values.index("game:")
-                        game = values[pos + 1].replace(chr(34), "").replace("'", "")
-                    except KeyError:
-                        game = ""
-                if "machine:" in values:
-                    try:
-                        pos = values.index("machine:")
-                        machine = values[pos + 1].upper().replace(chr(34), "").replace("'", "")
-                    except KeyError:
-                        machine = "MSX1"
-                else:
-                    machine = "MSX1"
+            game_data = page.meta.get("MSX") or page.meta.get("msx")
+            # breakpoint()
+            if game_data:
+                game = ""
+                machine = "MSX1"
+                if "game" in game_data:
+                    game = game_data["game"].replace(chr(34), "").replace(chr(39), "")
+                if "machine" in game_data:
+                    machine = game_data["machine"].upper().replace(chr(34), "").replace(chr(39), "")
 
-                html = webmsx_snippet(game, machine) + html
+                # breakpoint()
+                html = webmsx_snippet(game=game, machine=machine) + html
 
         except KeyError:
             pass
