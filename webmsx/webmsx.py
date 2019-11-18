@@ -6,6 +6,22 @@ class WebMSXPlugin(BasePlugin):
     """
     This class is derived from mkdocs.plugins.BasePlugin
     """
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.message = "Play this game online"
+        self.background = "#333"
+        self.color = "#aaa"
+        self.height = 64
+
+    def on_pre_build(self, config):
+        if self.config.get("message"):
+            self.message = self.config["message"]
+        if self.config.get("background-color"):
+            self.background = self.config["background-color"]
+        if self.config.get("color"):
+            self.color = self.config["color"]
+        if self.config.get("height"):
+            self.height = self.config["height"]
 
     def on_page_content(self, html, page, **kwargs):
         """
@@ -28,7 +44,6 @@ class WebMSXPlugin(BasePlugin):
 
         try:
             game_data = page.meta.get("MSX") or page.meta.get("msx")
-            # breakpoint()
             if game_data:
                 game = ""
                 machine = "MSX1"
@@ -38,7 +53,11 @@ class WebMSXPlugin(BasePlugin):
                     machine = game_data["machine"].upper().replace(chr(34), "").replace(chr(39), "")
 
                 # breakpoint()
-                html = webmsx_snippet(game=game, machine=machine) + html
+                html = webmsx_snippet(game=game, machine=machine,
+                                      message=self.message,
+                                      background=self.background,
+                                      color=self.color,
+                                      height=self.height) + html
 
         except KeyError:
             pass

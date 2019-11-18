@@ -7,7 +7,7 @@ class HTMLText:
     Creates the HTML Snippet that will be injected
     """
 
-    def __init__(self, game, machine):
+    def __init__(self, game, machine, message, background, color, height):
         self.html = ""
         f = open(join(dirname(__file__), "partials", "./code.inc.html"), "r")
         self.html = f.read()
@@ -25,13 +25,18 @@ class HTMLText:
 
         self.html = self.html.replace("{% GAME %}", temp)
         self.html = self.html.replace("{% MACHINE %}", machine)
+        self.html = self.html.replace("{% MESSAGE %}", message)
+        self.html = self.html.replace("{% BACKGROUND %}", background)
+        self.html = self.html.replace("{% COLOR %}", color)
+        breakpoint()
+        self.html = self.html.replace("{% HEIGHT %}", height)
 
     def __str__(self):
         return self.html
 
 
-def webmsx_snippet(game, machine):
-    html = HTMLText(game=game, machine=machine)
+def webmsx_snippet(**kwargs):
+    html = HTMLText(**kwargs)
 
     return str(html)
 
