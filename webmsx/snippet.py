@@ -28,7 +28,6 @@ class HTMLText:
         self.html = self.html.replace("{% MESSAGE %}", message)
         self.html = self.html.replace("{% BACKGROUND %}", background)
         self.html = self.html.replace("{% COLOR %}", color)
-        breakpoint()
         self.html = self.html.replace("{% HEIGHT %}", height)
 
     def __str__(self):
