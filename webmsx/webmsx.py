@@ -9,6 +9,8 @@ class WebMSXPlugin(BasePlugin):
     """
 
     config_scheme = (
+        ('path', config.config_options.Type(
+            utils.string_types, default='/msx')),
         ('message', config.config_options.Type(
             utils.string_types, default='Play this game online')),
         ('loadingmessage', config.config_options.Type(

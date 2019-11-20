@@ -18,11 +18,14 @@ class HTMLText:
         if game.endswith(".rom") \
                 or game.endswith(".mx1") \
                 or game.endswith(".mx2"):
-            temp = "WMSX.CARTRIDGE1_URL = '/_roms/{}';".format(game)
+            temp = "WMSX.CARTRIDGE1_URL = '{}/roms/{}';".format(
+                    config["path"], game)
         elif game.endswith(".dsk"):
-            temp = "WMSX.DISKA_URL = '/_disks/{}';".format(game)
+            temp = "WMSX.DISKA_URL = '{}/disks/{}';".format(
+                    config["path"], game)
         elif game.endswith(".cas"):
-            temp = "WMSX.TAPE_URL = '/_tapes/{}';".format(game)
+            temp = "WMSX.TAPE_URL = '{}/tapes/{}';".format(
+                    config["path"], game)
         
         config["game"] = temp
         self.html = template.render(**config)
