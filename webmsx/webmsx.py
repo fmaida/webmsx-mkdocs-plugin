@@ -1,3 +1,4 @@
+from mkdocs import config, utils
 from mkdocs.plugins import BasePlugin
 from .snippet import webmsx_snippet
 
@@ -6,26 +7,29 @@ class WebMSXPlugin(BasePlugin):
     """
     This class is derived from mkdocs.plugins.BasePlugin
     """
+
+    config_scheme = (
+        ('message', config.config_options.Type(
+            utils.string_types, default='Play this game online')),
+        ('loadingmessage', config.config_options.Type(
+            utils.string_types, default='( Hold on.. )')),
+        ('color', config.config_options.Type(
+            utils.string_types, default="#aaa")),
+        ('backgroundcolor', config.config_options.Type(
+            utils.string_types, default="#333")),
+        ("height", config.config_options.Type(int, default=64)),
+    )
+    
     def __init__(self, **kwargs):
         super().__init__()
-        self.message = "Play this game online"
-        self.background = "#333"
-        self.color = "#aaa"
-        self.height = 64
-
-    def on_pre_build(self, config):
-        if self.config.get("message"):
-            self.message = self.config["message"]
-        if self.config.get("background-color"):
-            self.background = self.config["background-color"]
-        if self.config.get("color"):
-            self.color = self.config["color"]
-        if self.config.get("height"):
-            self.height = self.config["height"]
+    
+    def on_config(self, config):
+        return config
 
     def on_page_content(self, html, page, **kwargs):
         """
-        This will be invoked each time a page has just finished rendering from markdown to HTML
+        This will be invoked each time a page has just 
+        finished rendering from markdown to HTML
 
         Args:
             html: the HTML code
@@ -48,16 +52,18 @@ class WebMSXPlugin(BasePlugin):
                 game = ""
                 machine = "MSX1"
                 if "game" in game_data:
-                    game = game_data["game"].replace(chr(34), "").replace(chr(39), "")
+                    game = game_data["game"]
+                    game = game.replace(chr(34), "")
+                    game = game.replace(chr(39), "")
+                    self.config["game"] = game
                 if "machine" in game_data:
-                    machine = game_data["machine"].upper().replace(chr(34), "").replace(chr(39), "")
-
+                    machine = game_data["machine"].upper()
+                    machine = machine.replace(chr(34), "")
+                    machine = machine.replace(chr(39), "")
+                    self.config["machine"] = machine
+                
                 # breakpoint()
-                html = webmsx_snippet(game=game, machine=machine,
-                                      message=self.message,
-                                      background=self.background,
-                                      color=self.color,
-                                      height=self.height) + html
+                html = webmsx_snippet(self.config) + html
 
         except KeyError:
             pass
